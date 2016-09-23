@@ -10,41 +10,23 @@
   <link href="main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-  <div id="container">
+  <div class="container">
 
-    <div class="shopping-list">
-      <!-- HTML coming soon -->
-    </div>
-
-    <div class="todo-list">
+    <div id="todo-list">
       <!-- HTML coming soon -->
     </div>
 
   </div>
 
   <script id="list-template" type="text/template">
-    <div id="heading">
-      <h1 class="title">List</h1>
-      <div id="hide" class="toggle-button">
+    <div class="list-plugin-heading">
+      <h1 class="list-plugin-title">List</h1>
+      <div class="list-plugin-hide">
         <i class="fa fa-plus"></i>
       </div>
     </div>
-    <input id="listInput" type="text" placeholder="Add New Item" class="list-input">
-    <ul class="list-items">
-
-    </ul>
-  </script>
-  <script id="list-template-todo" type="text/template">
-    <div id="heading">
-      <h1 class="title">List</h1>
-      <div id="hide" class="toggle-button">
-        <i class="fa fa-plus"></i>
-      </div>
-    </div>
-    <input id="listInput" type="text" placeholder="Add New Item" class="list-input">
-    <ul class="list-items">
-
-    </ul>
+    <input class="list-plugin-input" type="text" placeholder="Add New Item">
+    <ul class="list-plugin-items"></ul>
   </script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>

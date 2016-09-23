@@ -1,7 +1,3 @@
-// console.log("Connected!");
-
-// $('.todo-list').todoList(options);
-
 $.fn.todoList = function(options) {
   // this === jQuery elements selected (always an array)
   // this = [
@@ -9,18 +5,27 @@ $.fn.todoList = function(options) {
   //   jQueryObject // $('.todo-list').eq(1)
   // ]
 
-  return this.each(function() {
+  this
+    .on('todos.item-add', function(event, text) {
+      console.log(text);
+    })
+    .on('todos.before-item-add', function (event, value, complete) {
+      if (value !== '' || true) {
+        complete();
+      }
+    });
+
+    return this.each(function() {
     // Plugin Code
     // this === DOMElement // $('.todo-list')[0]
     var $container = $(this);
 
     var config = {
-      titleSelector: '.list-title',
-      itemsSelector: '.list-items',
-      inputSelector: '.list-input',
-      inputTogglerSelector: '.hide',
-      onItemAdd: $.noop,
-      templateSelector: null
+      titleSelector: '.list-plugin-title',
+      itemsSelector: '.list-plugin-items',
+      inputSelector: '.list-plugin-input',
+      inputTogglerSelector: '.list-plugin-hide',
+      templateSelector: '#list-template'
     };
 
     $.extend(config, options);
@@ -35,12 +40,12 @@ $.fn.todoList = function(options) {
     $container.find(config.titleSelector).text(config.title);
 
     //toggle "done" class on click
-    $container.find(config.itemsSelector).on("click", "li", function(){
-      $(this).toggleClass("done");
+    $container.find(config.itemsSelector).on('click', 'li', function(){
+      $(this).toggleClass("list-plugin-done");
     });
 
     //delete item when trash is clicked on
-    $container.find(config.itemsSelector).on("click", "li span", function(event){
+    $container.find(config.itemsSelector).on('click', 'li span', function(event){
       $(this).parent().fadeOut(500, function() { //fadeout
         $(this).remove();                        //then remove
       });
@@ -50,12 +55,11 @@ $.fn.todoList = function(options) {
     });
 
     // make list sortable
-    $container.find(config.itemsSelector).sortable({ axis: "y" });
+    $container.find(config.itemsSelector).sortable({ axis: 'y' });
 
     //add a new item if "Enter" key is pressed
-    $container.find(config.inputSelector).on("keypress", function(event){
+    $container.find(config.inputSelector).on('keypress', function(event){
       if (event.which === 13){
-
         // Validate event
         $container.trigger('todos.before-item-add', [$(this).val(), function() {
           //get input value
@@ -64,46 +68,23 @@ $.fn.todoList = function(options) {
           //create new li and add to ul
           $container.find(config.itemsSelector).prepend("<li class='grabbable'>" + todoText + " <span><i class='fa fa-trash'></i></span></li>");
 
-          // Old way: Passing in through config options
-          if (config.onItemAdd) {
-            config.onItemAdd();
-          }
-
           // Triggering / Listening through jQuery: $(...).on('item-add', callback);
-          $container.trigger('todos.item-add');
+          $container.trigger('todos.item-add', [todoText]);
         }.bind(this)]);
       }
     });
 
     //hide text input on plus button click
-    $container.find(config.inputTogglerSelector).on("click", function() {
+    $container.find(config.inputTogglerSelector).on('click', function() {
       $container.find(config.inputSelector).fadeToggle();
     });
   });
-
 };
-
-
 
 $(document).ready(function(){
 
-  $('.todo-list').on('todos.item-add', function() {
-    alert('Added   dude !');
-  }).on('todos.before-item-add', function (event, value, complete) {
-    if (value === 'start') {
-      complete();
-    }
-  });
-
-  $('.shopping-list').todoList({
-    title: 'Shopping List',
-    templateSelector: '#list-template'
-  });
-  $('.todo-list').todoList({
-    title: 'Todo List',
-    titleSelector: '.title',
-    inputTogglerSelector: '.toggle-button',
-    templateSelector: '#list-template-todo'
+  $('#todo-list').todoList({
+    title: 'Todo List'
   });
 
 });

@@ -1,3 +1,5 @@
+/* Generic styles */
+
 html {
   box-sizing: border-box;
 }
@@ -24,13 +26,15 @@ body {
   background: linear-gradient(to left, #3D7EAA , #FFE47A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-#container {
+.container {
   width: 30rem;
   margin: 5rem auto;
   box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.1)
 }
 
-#heading {
+
+/* list-plugin-styles */
+.list-plugin-heading {
   margin: 0;
   padding: 0;
   background: #2980b9;
@@ -38,7 +42,7 @@ body {
   display: flex;
 }
 
-#heading h1 {
+.list-plugin-heading h1 {
   height: 100%;
   display: inline-flex;
   width: 80%;
@@ -49,7 +53,7 @@ body {
 
 }
 
-#hide {
+.list-plugin-hide {
   width: 20%;
   display: inline-flex;
   font-size: 2em;
@@ -57,11 +61,11 @@ body {
   padding: 0 2rem;
 }
 
-#hide:hover {
+.list-plugin-hide:hover {
   cursor: pointer;
 }
 
-input {
+.list-plugin-input {
   font: 20px;
   color: #2980b9;
   background-color: #f7f7f7;
@@ -72,19 +76,19 @@ input {
 
 }
 
-input:focus {
+.list-plugin-input:focus {
   background: #fff;
   border: 3px solid #2980b9;
   outline: none;
 }
 
-ul {
+.list-plugin-items {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-li {
+.list-plugin-items li {
   background: #fff;
   height: 40px;
   line-height: 40px;
@@ -92,16 +96,17 @@ li {
   padding-left: 1rem;
 }
 
-li:nth-child(2n) {
+.list-plugin-items li:nth-child(2n) {
   background: #f7f7f7
 }
 
-li:hover span {
+.list-plugin-items li:hover span {
   width: 40px;
   opacity: 1;
+  cursor: pointer;
 }
 
-span {
+.list-plugin-items span {
   background: #e74e3c;
   height: 40px;
   width: 0px;
@@ -113,12 +118,8 @@ span {
   float: right;
 }
 
-.done {
-  color: gray;
-  text-decoration: line-through;
-}
 
-.grabbable {
+.list-plugin-items .grabbable {
     cursor: move; /* fallback if grab cursor is unsupported */
     cursor: grab;
     cursor: -moz-grab;
@@ -126,8 +127,13 @@ span {
 }
 
  /* (Optional) Apply a "closed-hand" cursor during drag operation. */
-.grabbable:active {
+.list-plugin-items .grabbable:active {
     cursor: grabbing;
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
+}
+
+.list-plugin-done {
+  color: gray;
+  text-decoration: line-through;
 }
